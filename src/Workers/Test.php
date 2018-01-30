@@ -7,10 +7,13 @@ use App\Worker;
 class Test extends Worker
 {
 
-    protected function handle()
+    protected function handle(): \Generator
     {
-        echo 'Hello, world!';
-        echo "\n";
+        foreach ([1, 2, 3] as $done) {
+            // Введем задержку для наглядности и отладки
+            sleep(1);
+            yield $done;
+        }
     }
 
 }
