@@ -10,5 +10,10 @@ $className = '\App\Workers\\' . $argv[1];
 // Создаем экземпляр класса
 $worker = new $className;
 
+// Устанавливаем обработчики сигналов
+foreach ($className::SIGNALS as $signal => $handler) {
+    pcntl_signal($signal, [$worker, $handler]);
+}
+
 // ...Старт!
 $worker();

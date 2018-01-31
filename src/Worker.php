@@ -1,5 +1,7 @@
 <?php
 
+declare(ticks=1);
+
 namespace App;
 
 /**
@@ -10,9 +12,16 @@ namespace App;
  */
 abstract class Worker
 {
+    // Список перехватываемых сигналов и их обработчики
+    public const SIGNALS = [
+        SIGTERM => 'sigTermHandler'
+    ];
 
     // Здесь хранится PID текущего процесса
     protected $pid;
+
+    // Флаг, означающий, что пора заканчивать работу
+    protected $terminate = false;
 
     // Здесь мы узнаём PID и выводим его
     public function __construct()
@@ -33,11 +42,28 @@ abstract class Worker
     // Метод "запуска" воркера
     final public function __invoke(): void
     {
+        // Основной рабочий цикл воркера
         foreach ($this->handle() as $done) {
-            // Здесь будет находиться точка прерывания воркера
+
             $this->message($done . '...');
+
+            // Корректный выход из процесса по завершении кванта работы
+            if ($this->terminate) {
+                $this->message('Воркер был прерван');
+                exit(0);
+            }
+
         };
-        echo "\n";
+
+        $this->message('Воркер закончил работу');
+    }
+
+    // Обработчик сигнала SIGTERM
+    public function sigTermHandler(int $signo, $signinfo)
+    {
+        if (SIGTERM === $signo) {
+            $this->terminate = true;
+        }
     }
 
 }
