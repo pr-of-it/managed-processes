@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "fdf70cedfe91bef7701e4acd52172cfc",
+    "content-hash": "14f0540480b4c2f046f3472def7e9c87",
     "packages": [
         {
             "name": "paragonie/random_compat",
@@ -193,6 +193,107 @@
             "time": "2017-08-30T10:17:16+00:00"
         },
         {
+            "name": "runn/fs",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RunnMe/Fs.git",
+                "reference": "766396cd9a12cf1a8917d8f327e3da9c2690b1e2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/RunnMe/Fs/zipball/766396cd9a12cf1a8917d8f327e3da9c2690b1e2",
+                "reference": "766396cd9a12cf1a8917d8f327e3da9c2690b1e2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0",
+                "runn/core": "dev-master",
+                "runn/serialization": "dev-master"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "5.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Runn\\": "src/"
+                },
+                "files": [
+                    "src/Fs/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL v.3"
+            ],
+            "authors": [
+                {
+                    "name": "Albert Stepantsev"
+                }
+            ],
+            "description": "Runn Me! File System Library",
+            "keywords": [
+                "file",
+                "folder",
+                "framework",
+                "runn",
+                "runn.me"
+            ],
+            "time": "2017-11-10T11:13:22+00:00"
+        },
+        {
+            "name": "runn/serialization",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RunnMe/Serialization.git",
+                "reference": "e5d7f9df9ac436d0338b0e3a56f552680b53e163"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/RunnMe/Serialization/zipball/e5d7f9df9ac436d0338b0e3a56f552680b53e163",
+                "reference": "e5d7f9df9ac436d0338b0e3a56f552680b53e163",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0",
+                "runn/core": "dev-master",
+                "symfony/yaml": "3.*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "5.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Runn\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL v.3"
+            ],
+            "authors": [
+                {
+                    "name": "Albert Stepantsev"
+                }
+            ],
+            "description": "Runn Me! Serialization Library",
+            "keywords": [
+                "decode",
+                "deserialize",
+                "encode",
+                "framework",
+                "runn",
+                "runn.me",
+                "serialization",
+                "serialize",
+                "unserialize"
+            ],
+            "time": "2017-11-10T10:39:18+00:00"
+        },
+        {
             "name": "runn/validation",
             "version": "dev-master",
             "source": {
@@ -299,6 +400,64 @@
                 "runn.me"
             ],
             "time": "2018-01-04T20:30:23+00:00"
+        },
+        {
+            "name": "symfony/yaml",
+            "version": "v3.4.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/yaml.git",
+                "reference": "eab73b6c21d27ae4cd037c417618dfd4befb0bfe"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/eab73b6c21d27ae4cd037c417618dfd4befb0bfe",
+                "reference": "eab73b6c21d27ae4cd037c417618dfd4befb0bfe",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.5.9|>=7.0.8"
+            },
+            "conflict": {
+                "symfony/console": "<3.4"
+            },
+            "require-dev": {
+                "symfony/console": "~3.4|~4.0"
+            },
+            "suggest": {
+                "symfony/console": "For validating YAML files using the lint command"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Yaml\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Yaml Component",
+            "homepage": "https://symfony.com",
+            "time": "2018-01-21T19:05:02+00:00"
         }
     ],
     "packages-dev": [],

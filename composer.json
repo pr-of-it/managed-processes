@@ -3,6 +3,7 @@
   "prefer-stable": true,
   "require": {
     "ramsey/uuid": "*",
-    "runn/valueobjects": "dev-master"
+    "runn/valueobjects": "dev-master",
+    "runn/fs": "*"
   }
 }
