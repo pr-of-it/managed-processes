@@ -51,4 +51,36 @@ class TasksRepository implements SingletonInterface
        return  $this->redis->set($task->getPrimaryKey(), json_encode($task));
     }
 
+    /**
+     * Ставит задачу в очередь
+     * @param string $queueId Идентификатор очереди задач
+     * @param Task $task
+     */
+    public function addToQueue(string $queueId, Task $task): void
+    {
+        if (!$task->issetPrimaryKey()) {
+            $this->store($task);
+        }
+
+        $this->redis->rPush('tasks:queue:' . $queueId, $task->getPrimaryKey());
+    }
+
+    /**
+     * Возвращает ближайшую в очереди задачу, удаляя ее из очереди
+     * @param string $queueId Идентификатор очереди задач
+     * @return Task|null
+     * @throws \Exception
+     */
+    public function findClosestInQueue(string $queueId): ?Task
+    {
+        $key = $this->redis->lPop('tasks:queue:' . $queueId);
+        if (false === $key) {
+            return null;
+        }
+
+        $data = $this->redis->get($key);
+
+        return Task::createFromRedis($key, $data);
+    }
+
 }

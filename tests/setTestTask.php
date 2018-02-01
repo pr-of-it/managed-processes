@@ -17,5 +17,8 @@ $task = new Task([
 // Сохраняем задачу в Redis
 TasksRepository::instance()->store($task);
 
+// Добавляем в очередь для заданного воркера
+TasksRepository::instance()->addToQueue('Test', $task);
+
 echo $task->key;
 echo "\n";

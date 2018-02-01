@@ -8,17 +8,13 @@ use App\Values\TestWorkerExecuteValue;
 // Подключаем автозагрузку своего проекта
 require __DIR__ . '/../autoload.php';
 
-// Создаем задачу
-$task = new Task([
-    'worker' => 'Test',
-    'execute' => new TestWorkerExecuteValue(10),
-]);
+// Получаем ID очереди
+$queue = $argv[1];
 
-// Сохраняем задачу в Redis
-TasksRepository::instance()->store($task);
+$task = TasksRepository::instance()->findClosestInQueue($queue);
 
-// Добавляем в очередь для заданного воркера
-TasksRepository::instance()->addToQueue('Test', $task);
+if (!empty($task)) {
+    var_dump( $task->getValue() );
+}
 
-echo $task->key;
 echo "\n";

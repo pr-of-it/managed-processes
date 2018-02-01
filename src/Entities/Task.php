@@ -60,4 +60,30 @@ class Task extends Entity
             Uuid::uuid4();
     }
 
+    /**
+     * Создает сущность "Задача" на основе данных из Redis
+     * @param string $key Ключ задачи
+     * @param string $dataFromRedis Данные из Redis
+     * @return Task
+     * @throws \Exception
+     */
+    public static function createFromRedis(string $key, string $dataFromRedis): self
+    {
+        $taskData = json_decode($dataFromRedis, true);
+
+        // На случай, если из Redis ничего не пришло
+        if (empty(array_filter($taskData))) {
+            return null;
+        }
+
+        // Определяем класс "полетного задания" для воркера
+        $workerExecuteValueClass = '\App\Values\\' . $taskData['worker'] . 'WorkerExecuteValue';
+        $taskData['execute'] = new $workerExecuteValueClass($taskData['execute']);
+
+        // Добавляем к данным ключ задачи
+        $taskData = array_merge($taskData, ['key' => $key]);
+
+        return new self ($taskData);
+    }
+
 }
