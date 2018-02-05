@@ -14,7 +14,9 @@ abstract class Worker
 {
     // Список перехватываемых сигналов и их обработчики
     public const SIGNALS = [
-        SIGTERM => 'sigTermHandler'
+        SIGTERM => 'sigTermHandler',
+        SIGTSTP => 'sigTstpHandler',
+        SIGCONT => 'sigContHandler',
     ];
 
     // Здесь хранится PID текущего процесса
@@ -22,6 +24,9 @@ abstract class Worker
 
     // Флаг, означающий, что пора заканчивать работу
     protected $terminate = false;
+
+    // Флаг, означающий, что нужно приостановить работу
+    protected $pause = false;
 
     // Здесь мы узнаём PID и выводим его
     public function __construct()
@@ -53,6 +58,13 @@ abstract class Worker
                 exit(0);
             }
 
+            // Бесконечный цикл в паузе
+            while ($this->pause) {
+                $this->message('Воркер на паузе');
+                // Спим секунду до следующей проверки, чтобы не нагружать CPU
+                sleep(1);
+            }
+
         };
 
         $this->message('Воркер закончил работу');
@@ -62,7 +74,23 @@ abstract class Worker
     public function sigTermHandler(int $signo, $signinfo)
     {
         if (SIGTERM === $signo) {
-            $this->terminate = true;
+            $this->pause = true;
+        }
+    }
+
+    // Обработчик сигнала SIGTSTP
+    public function sigTstpHandler(int $signo, $signinfo)
+    {
+        if (SIGTSTP === $signo) {
+            $this->pause = true;
+        }
+    }
+
+    // Обработчик сигнала SIGCONT
+    public function sigContHandler(int $signo, $signinfo)
+    {
+        if (SIGCONT === $signo) {
+            $this->pause = false;
         }
     }
 
